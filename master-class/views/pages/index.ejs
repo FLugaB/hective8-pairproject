@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <%- include('../partials/head'); %>
+    </head>
+    <body onload="loader_page()">
+
+        <div id="loader">
+            <div class="wrapper">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <header>
+            <%- include('../partials/header'); %>
+        </header>
+
+        <main>
+            <%- include('../partials/videoHomepage'); %>
+            <%- include('../partials/commercialText'); %>
+
+            <!-- <div class="container">
+                <h1>This is great</h1>
+                <p>Welcome to templating using EJS</p>
+            </div> -->
+        </main>
+
+        <footer>
+            <%- include('../partials/footer'); %>
+        </footer>
+
+    </body>
+    <script for="javascript" src="./js/global.js"></script>
+</html>
