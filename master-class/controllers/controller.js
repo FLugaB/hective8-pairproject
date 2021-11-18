@@ -1,6 +1,8 @@
 const { User, Category, Course, UserProfile } = require("../models");
 const bcrypt = require("bcryptjs");
 
+const { Op } = require("sequelize");
+
 class Controller {
   static home(req, res) {
     let user = req.session.userId;
@@ -57,6 +59,10 @@ class Controller {
   }
 
   static signUp(req, res) {
+    let error;
+    if (req.query.errors) {
+      error = req.query.errors.split(",");
+    }
     let user = req.session.userId;
     let data;
     if (!user || !data) {
@@ -65,6 +71,7 @@ class Controller {
       res.render("./pages/addUserForm", {
         data,
         user,
+        error,
       });
     } else {
       user = true;
@@ -72,6 +79,7 @@ class Controller {
       res.render("./pages/addUserForm", {
         data,
         user,
+        error,
       });
     }
   }
@@ -98,7 +106,12 @@ class Controller {
         res.redirect("/");
       })
       .catch((err) => {
-        res.send(err);
+        let error = [];
+        err.errors.forEach((element) => {
+          error.push(element.message);
+        });
+
+        res.redirect(`/addUser?errors=${error}`);
       });
   }
 
@@ -165,6 +178,7 @@ class Controller {
   }
 
   static categories(req, res) {
+    let search = req.query.search;
     let data = req.session;
     Category.findAll({
       include: {

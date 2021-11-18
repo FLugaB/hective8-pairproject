@@ -11,6 +11,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Category.hasMany(models.Course);
     }
+
+    static search(search) {
+      return new Promise((resolve, reject) => {
+        Course.findAll({
+          where: {
+            title: {
+              [Op.iLike]: `%${search}%`,
+            },
+          },
+        })
+          .then((data) => {
+            resolve(data);
+          })
+          .catch((err) => reject(err));
+      });
+    }
   }
   Category.init(
     {

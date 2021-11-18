@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       UserProfile.belongsTo(models.User);
     }
+
+    get formatFullName() {
+      return `${this.firstName} ${this.lastName}`;
+    }
   }
   UserProfile.init(
     {

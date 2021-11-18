@@ -28,9 +28,7 @@ router.post("/categories/add", Controller.addCategories);
 router.get("/course/add", Controller.addCourses);
 router.post("/course/add", Controller.addedCourses);
 
-
-
-router.get(`/categories/delete/:categoriesid`, Controller.deleteCategories)
+router.get(`/categories/delete/:categoriesid`, Controller.deleteCategories);
 
 router.get("/categories/:id", Controller.categoriesFindOne);
 
