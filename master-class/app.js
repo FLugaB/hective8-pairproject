@@ -2,8 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const session = require("express-session");
-const Controller = require("./controllers/controller");
-const { isLogin, isAdmin } = require("./middleware/middleware");
+const router = require("./routes");
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -20,23 +19,8 @@ app.use(
     },
   })
 );
-app.use(function (req, res, next) {
-  console.log(req.session.userId);
-  console.log(req.session.role);
-  next();
-});
-app.get("/", Controller.home);
-app.post("/", Controller.login);
-//userSubscriber
-app.get("/addUser", Controller.signUp);
-app.post("/addUser", Controller.newUser);
 
-app.use(isLogin);
-
-app.get("/addUser", isAdmin, Controller.signUpWithAdmin);
-app.post("/addUser", isAdmin, Controller.newUserWithAdmin);
-
-app.get("/logout", Controller.logout);
+app.use("/", router);
 
 app.listen(port, () => {
   console.log(`Go to ${port}`);
