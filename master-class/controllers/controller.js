@@ -218,6 +218,44 @@ class Controller {
     })
   }
 
+  static addCourses(req,res){
+    let data = req.session;
+    let id = req.params.id;
+    let CoursesId = req.params.id
+
+    Category.findAll()
+    .then( category => {
+      res.render("./pages/addCoursesForm", {id, data, CoursesId, category});
+    })
+    .catch( err => {
+      res.send(err);
+    })
+  }
+
+  static addedCourses(req,res){
+    const { CourseId, title, master, urlImg, urlVideo, description, category } = req.body
+    let data = req.session;
+    let id = req.params.id;
+    // let CategoryId = req.params.categoriesid
+
+    Course.create({
+      title: req.body.title,
+      master: req.body.master,
+      urlImg: req.body.urlImg,
+      urlVideo: req.body.urlVideo,
+      description: req.body.description,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      CategoryId: req.body.category,
+    })
+    .then( categories => {
+      res.redirect(`/profile`);
+    })
+    .catch( err => {
+      res.send(err);
+    })
+  }
+
   static editCourses(req,res){
     let data = req.session;
     let id = req.params.id;

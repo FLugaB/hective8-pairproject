@@ -27,6 +27,9 @@
                             <ul class="nav justify-content-center profile">
                                 <li class="nav-item w-100"><a class="nav-link active" data-toggle="tab" aria-current="page" href="#dashboard">Dashboard</a></li>
                                 <li class="nav-item w-100"><a class="nav-link" data-toggle="tab" href="#courses">Courses</a></li>
+                                <% if (user.User.role === 'Admin'){ %>
+                                    <li class="nav-item w-100"><a class="nav-link" data-toggle="tab" href="#cms">CMS</a></li>  
+                                <% } %>
                                 <li class="nav-item w-100"><a class="nav-link" href="#">Logout</a></li>
                                 <!-- <li class="nav-item w-100"><a class="nav-link" data-toggle="tab" href="#menu1">#menu2</a></li>
                                 <li class="nav-item w-100"><a class="nav-link" data-toggle="tab" href="#menu3">#menu3</a></li> -->
@@ -43,9 +46,9 @@
                                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                                 <img id="avatar" src="https://i.imgflip.com/1jllo6.jpg" class="card-img-top" alt="Avatar">
                                 <div class="card-body px-0 py-4">
-                                    <h5 class="card-title text-master">Full Name</h5>
-                                    <p class="card-text text-white">emailnya apa</p>
-                                    <button type="button" class="btn btn-warning">Edit</button>
+                                    <h5 class="card-title text-master"><%= user.firstName %> <%= user.lastName %></h5>
+                                    <p class="card-text text-white"><%= user.User.email %></p>
+                                    <a href="" class="btn btn-warning">Edit</a>
                                 </div>
                             </div>
                         </div>
@@ -83,14 +86,10 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div id="menu2" class="tab-pane fade">
-                          <h3>Menu 2</h3>
-                          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                        </div>
-                        <div id="menu3" class="tab-pane fade">
-                          <h3>Menu 3</h3>
-                          <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                        </div> -->
+                        <div id="cms" class="tab-pane fade">
+                            <h3 class="text-master">Courses</h3>
+                            <a href="/course/add" class="btn btn-primary">Add Courses</a>
+
                     </div>
                 </div>
             </div>

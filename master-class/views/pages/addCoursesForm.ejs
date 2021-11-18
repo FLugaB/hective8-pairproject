@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+
+    <header><%- include('../partials/headerWithLogin'); %></header>
+
+    <main id="animation-zoom-out">
+      <form class="w-50 mx-auto h-50" action="/course/add" method="post">
+        <div class="py-5">
+          <h1 class="text-master font-lato-regular">Edit Courses</h1>
+        </div>
+        <div class="form-group row">
+          <label for="title" class="col-sm-2 col-form-label text-white">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="title" name="title" placeholder="title"/>
+          </div>
+        </div>
+        <div class="form-group row">
+            <label for="master" class="col-sm-2 col-form-label text-white">Master</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="master" name="master" placeholder="master" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="urlImg" class="col-sm-2 col-form-label text-white">UrlImage</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="urlImg" name="urlImg" placeholder="urlImg" />
+            </div>
+        </div>
+        <div class="form-group row">
+          <label for="urlVideo" class="col-sm-2 col-form-label text-white">URL Video</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="urlVideo" placeholder="urlVideo" name="urlVideo" />
+          </div>
+        </div>
+        <div class="form-group row">
+            <label for="description" class="col-sm-2 col-form-label text-white">Description</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="description" name="description" placeholder="description"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="category" class="col-sm-2 col-form-label text-white">Category</label>
+            <div class="col-sm-2">
+                <select id="category" class="form-control" name="category">
+                    <% category.forEach(function(e) { %>
+                        <option selected value="<%= e.id %>"> <%= e.name %> </option>
+                    <% }); %>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+
+      </form>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+
+</html>
