@@ -112,14 +112,16 @@ class Controller {
   }
 
   static categories(req, res) {
+    let data = req.session;
+    console.log(data, `yay`)
     Category.findAll({
       include: {
         model: Course,
         required: true,
       },
     })
-      .then((data) => {
-        return res.render("./pages/categories", { data });
+      .then((categories) => {
+        return res.render("./pages/categories", { categories, data });
       })
       .catch((err) => {
         console.log(err);
@@ -127,6 +129,7 @@ class Controller {
   }
 
   static categoriesFindOne(req, res) {
+    let data = req.session;
     let id = req.params.id;
     Course.findAll({
       include: {
@@ -135,11 +138,9 @@ class Controller {
       },
     })
 
-      .then((data) => {
-        let newCourses = data.filter((courses) => courses.CategoryId == id);
-
-        console.log(newCourses);
-        res.render("./pages/single", { data, newCourses });
+      .then((categories) => {
+        let newCourses = categories.filter((courses) => courses.CategoryId == id);
+        res.render("./pages/single", { categories, newCourses, data });
       })
       .catch((err) => {
         res.send(err);
