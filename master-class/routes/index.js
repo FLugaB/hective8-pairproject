@@ -18,10 +18,15 @@ router.use(isLogin);
 // router.get("/addUser", isAdmin, Controller.signUpWithAdmin);
 // router.post("/addUser", isAdmin, Controller.newUserWithAdmin);
 
+router.get("/profile", Controller.profile);
+
 router.get("/categories", Controller.categories);
 
 router.get("/categories/add", Controller.formCategories);
 router.post("/categories/add", Controller.addCategories);
+
+// router.get("/course/add", Controller.formCourse);
+// router.post("/course/add", Controller.addCourse);
 
 
 

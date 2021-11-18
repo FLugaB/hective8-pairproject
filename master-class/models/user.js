@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsToMany(models.Course, {
         through: "User_Courses",
       });
+      User.hasOne(models.UserProfile)
     }
   }
   User.init(

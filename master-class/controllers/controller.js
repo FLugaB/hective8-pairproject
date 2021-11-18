@@ -79,13 +79,21 @@ class Controller {
 
   static newUser(req, res) {
     const { email, password, role = "Subscriber" } = req.body;
-    // console.log(email, password, role);
-
+    let newUser;
     User.create({
       email: email,
       password: password,
       role: role,
     })
+      .then((user) => {
+        newUser = user
+        return UserProfile.create({
+          firstName: 'You need to Edit this one',
+          lastName: 'Edit cui',
+          UserId: newUser.id
+        })
+        // res.redirect("/");
+      })
       .then((user) => {
         res.redirect("/");
       })
@@ -109,6 +117,24 @@ class Controller {
         res.redirect("/");
       }
     });
+  }
+
+  static profile(req, res) {
+    let data = req.session;
+    UserProfile.findOne({
+      where: {
+        UserId: data.userId
+      },
+      include: {
+        model: User
+      }
+    })
+      .then((user) => {
+        return res.render("./pages/userProfile", { user, data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   static categories(req, res) {
