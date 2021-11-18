@@ -25,8 +25,8 @@ router.get("/categories", Controller.categories);
 router.get("/categories/add", Controller.formCategories);
 router.post("/categories/add", Controller.addCategories);
 
-// router.get("/course/add", Controller.formCourse);
-// router.post("/course/add", Controller.addCourse);
+router.get("/course/add", Controller.addCourses);
+router.post("/course/add", Controller.addedCourses);
 
 
 

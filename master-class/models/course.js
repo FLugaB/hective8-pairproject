@@ -17,11 +17,46 @@ module.exports = (sequelize, DataTypes) => {
   }
   Course.init(
     {
-      title: DataTypes.STRING,
-      master: DataTypes.STRING,
-      urlImg: DataTypes.STRING,
-      urlVideo: DataTypes.STRING,
-      description: DataTypes.TEXT,
+      title: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            msg: "Fill Course Title"
+          }
+        }
+      },
+      master: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            msg: "Fill Course Master"
+          }
+        }
+      },
+      urlImg: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            msg: "Fill Course urlImg"
+          }
+        }
+      },
+      urlVideo: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: {
+            msg: "Fill Course urlVideo"
+          }
+        }
+      },
+      description: {
+        type: DataTypes.TEXT,
+        validate: {
+          notEmpty: {
+            msg: "Fill Course urlVideo"
+          }
+        }
+      },
       CategoryId: DataTypes.INTEGER,
     },
     {
