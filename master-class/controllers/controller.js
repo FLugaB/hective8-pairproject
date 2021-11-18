@@ -4,34 +4,96 @@ const bcrypt = require("bcryptjs");
 
 class Controller {
   static home(req, res) {
-    if (req.query) {
-      let { username, password } = req.query;
-
+    let user = req.session.userId;
+    if (!user) {
+      user = "You need to login first before classes";
+    }
+    if (req.session.userId) {
       User.findOne({
-        where: { username },
+        where: {
+          id: user,
+        },
       })
-        .then((user) => {
-          if (user) {
-            const isValidPassword = bcrypt.compareSync(password, hash);
-            if (isValidPassword) {
-              return res.redirect("/");
-            } else {
-              const error = "invalid username/password";
-              return res.redirect(`/?errors=${error}`);
-            }
-          } else {
-            const error = "invalid username/password";
-            return res.redirect(`/?errors=${error}`);
+        .then((data) => {
+          if (req.session.role === "Admin") {
+            return res.render("./pages/index", { data, user });
+          } else if (req.session.role === "Subscriber") {
+            return res.render("./pages/index", { data, user });
           }
         })
         .catch((err) => {
-          res.send(err);
+          return res.send(err);
         });
+    } else {
+      let data = null;
+      return res.render("./pages/index", { user, data });
     }
-    res.render("./pages/index");
   }
 
-  static signUp(req, res) {}
+  static login(req, res) {
+    let { email, password } = req.body;
+
+    User.findOne({
+      where: { email },
+    })
+      .then((user) => {
+        if (user) {
+          req.session.userId = user.id;
+          req.session.role = user.role;
+          const isValidPassword = bcrypt.compareSync(password, user.password);
+          if (isValidPassword) {
+            return res.redirect("/");
+          } else {
+            const error = "invalid email/password";
+            return res.redirect(`/?errors=${error}`);
+          }
+        } else {
+          const error = "invalid email/password";
+          return res.redirect(`/?errors=${error}`);
+        }
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+
+  static signUp(req, res) {
+    res.render("./pages/addUserForm");
+  }
+
+  static newUser(req, res) {
+    const { email, password, role = "Subscriber" } = req.body;
+    // console.log(email, password, role);
+
+    User.create({
+      email: email,
+      password: password,
+      role: role,
+    })
+      .then((user) => {
+        res.redirect("/");
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+
+  static signUpWithAdmin(req, res) {
+    res.render("./pages/addUserForm");
+  }
+  static newUserWithAdmin(req, res) {
+    let { email, password, role } = req.body;
+  }
+
+  static logout(req, res) {
+    req.session.destroy((err) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect("/");
+      }
+    });
+  }
 }
 
 module.exports = Controller;

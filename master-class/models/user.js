@@ -15,8 +15,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: { msg: "email must not be empty" },
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: { msg: "email must not be empty" },
+        },
+      },
       role: DataTypes.STRING,
     },
     {
@@ -25,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       hooks: {
         beforeCreate: (instance, options) => {
           var salt = bcrypt.genSaltSync(10);
-          var hash = bcrypt.hashSync("instance.password", salt);
+          var hash = bcrypt.hashSync(instance.password, salt);
 
           instance.password = hash;
         },
