@@ -1,126 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+  <head>
     <%- include('../partials/head'); %>
-    </head>
-    <body onload="loader_page()">
+  </head>
+  <body>
+    <header><%- include('../partials/headerWithLogin'); %></header>
 
-        <%- include('../partials/loader'); %>
+    <main id="animation-zoom-out" class="pt-5 pl-5">
+      <div class="row">
+        <div class="col-3 pl-5">
+          <h1 class="text-white pb-3">Food</h1>
+          <h3 class="text-master">All Classes Categories</h3>
 
-        <header>
-            <%- include('../partials/header'); %>
-        </header>
-
-        <main id="animation-zoom-out" class="pt-5 pl-5">
-            <div class="row">
-                <div class="col-3 pl-5">
-                    <h1 class="text-white pb-3">Food</h1>
-                    <h3 class="text-master">All Classes Categories</h3>
-            
-                        <div class="pb-4">
-                            <ul class="list-group">
-                            
-                                <li class="list-group-item list-group-item-danger text-center animated pulse joom-out font-weight-bold w-50">categories</li>
-                                <li class="list-group-item list-group-item-danger text-center animated pulse joom-out font-weight-bold w-50">categories</li>
-                                <li class="list-group-item list-group-item-danger text-center animated pulse joom-out font-weight-bold w-50">categories</li>
-                                <li class="list-group-item list-group-item-danger text-center animated pulse joom-out font-weight-bold w-50">categories</li>
-                                
-
-            
-                            </ul>
-                        </div>
-  
+          <div class="pb-4">
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-danger text-center animated pulse joom-out font-weight-bold w-50">categories</li>
+              <li class="list-group-item list-group-item-danger text-center animated pulse joom-out font-weight-bold w-50">categories</li>
+              <li class="list-group-item list-group-item-danger text-center animated pulse joom-out font-weight-bold w-50">categories</li>
+              <li class="list-group-item list-group-item-danger text-center animated pulse joom-out font-weight-bold w-50">categories</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="row justify-content-around">
+            <% newCourses.forEach(function(e) { %>
+            <div class="col-6 my-5">
+              <div class="card bg-dark text-white">
+                <img src="<%= e.urlImg %>" alt="" />
+                <div class="card-img-overlay">
+                  <div class="description">
+                    <h5 class="card-title text-center"><%= e.master %></h5>
+                    <p class="card-text"><%= e.title %></p>
+                    <button type="button" class="btn btn-primary">Get Courses</button>
+                    <button type="button" class="btn btn-success video-btn" data-toggle="modal" data-src="<%= e.urlVideo %>" data-target="#myModal">Watch</button>
+                    <button type="button" class="btn btn-warning">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                  </div>
                 </div>
-                
-                <div class="col-9">
-                    <div class="row justify-content-around">
-
-                        <div class="col-6 my-5">
-                            <div class="card bg-dark text-white">
-                                <img src="https://www.masterclass.com/course-images/attachments/MxnYcBNgaWeuoLFsNPqPQnkE?width=300&height=533&fit=cover&dpr=2" alt="">
-                                <div class="card-img-overlay">
-                                    <div class="description">
-                                        <h5 class="card-title text-center">Gordon Ramsey</h5>
-                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        <p class="card-text">Last updated 3 mins ago</p>
-                                        <button type="button" class="btn btn-primary">Get Courses</button>
-                                        <button type="button" class="btn btn-success video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/FTociictyyE" data-target="#myModal">
-                                            Watch
-                                        </button>
-                                        <button type="button" class="btn btn-warning">Edit</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-6 my-5">
-                            <div class="card bg-dark text-white">
-                                <img src="https://www.masterclass.com/course-images/attachments/jm9JMppgKNVjeFLiYaWi7xf2?width=300&height=533&fit=cover&dpr=2" alt="">
-                                <div class="card-img-overlay">
-                                    <div class="description">
-                                        <h5 class="card-title text-center">Gordon Ramsey</h5>
-                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        <p class="card-text">Last updated 3 mins ago</p>
-                                        <button type="button" class="btn btn-primary">Get Courses</button>
-                                        <button type="button" class="btn btn-success video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/jZpyJg-R49E" data-target="#myModal">
-                                            Watch
-                                        </button>
-                                        <button type="button" class="btn btn-warning">Edit</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 my-5">
-                            <div class="card bg-dark text-white">
-                                <img src="https://www.masterclass.com/course-images/attachments/MxnYcBNgaWeuoLFsNPqPQnkE?width=300&height=533&fit=cover&dpr=2" alt="">
-                                <div class="card-img-overlay">
-                                    <div class="description">
-                                        <h5 class="card-title text-center">Gordon Ramsey</h5>
-                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        <p class="card-text">Last updated 3 mins ago</p>
-                                        <button type="button" class="btn btn-primary">Get Courses</button>
-                                        <button type="button" class="btn btn-success video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/FTociictyyE" data-target="#myModal">
-                                            Watch
-                                        </button>
-                                        <button type="button" class="btn btn-warning">Edit</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 my-5">
-                            <div class="card bg-dark text-white">
-                                <img src="https://www.masterclass.com/course-images/attachments/jm9JMppgKNVjeFLiYaWi7xf2?width=300&height=533&fit=cover&dpr=2" alt="">
-                                <div class="card-img-overlay">
-                                    <div class="description">
-                                        <h5 class="card-title text-center">Gordon Ramsey</h5>
-                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        <p class="card-text">Last updated 3 mins ago</p>
-                                        <button type="button" class="btn btn-primary">Get Courses</button>
-                                        <button type="button" class="btn btn-success video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/FTociictyyE" data-target="#myModal">
-                                            Watch
-                                        </button>
-                                        <button type="button" class="btn btn-warning">Edit</button>
-                                        <button type="button" class="btn btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </main>
 
-        </main>
+    <footer><%- include('../partials/footer'); %></footer>
 
-        <footer>
-            <%- include('../partials/footer'); %>
-        </footer>
-        
-            <%- include('../partials/modalVideo'); %>
-    </body>
-    <script for="javascript" src="./js/modalVideo.js"></script>
-    <script for="javascript" src="./js/global.js"></script>
+    <%- include('../partials/modalVideo'); %>
+  </body>
+  <script for="javascript" src="./js/modalVideo.js"></script>
 </html>
-
