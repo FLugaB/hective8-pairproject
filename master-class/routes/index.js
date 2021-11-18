@@ -19,7 +19,18 @@ router.use(isLogin);
 // router.post("/addUser", isAdmin, Controller.newUserWithAdmin);
 
 router.get("/categories", Controller.categories);
+
+router.get("/categories/add", Controller.formCategories);
+router.post("/categories/add", Controller.addCategories);
+
+
+
+router.get(`/categories/delete/:categoriesid`, Controller.deleteCategories)
+
 router.get("/categories/:id", Controller.categoriesFindOne);
+
+router.get("/categories/:id/edit", Controller.editCourses);
+router.post("/categories/:id/edit", Controller.updateCourses);
 
 router.get("/logout", Controller.logout);
 

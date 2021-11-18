@@ -113,7 +113,6 @@ class Controller {
 
   static categories(req, res) {
     let data = req.session;
-    console.log(data, `yay`)
     Category.findAll({
       include: {
         model: Course,
@@ -145,6 +144,102 @@ class Controller {
       .catch((err) => {
         res.send(err);
       });
+  }
+
+
+  static formCategories(req, res) {
+
+    let data = req.session;
+    let id = req.params.id;
+
+    res.render("./pages/categoriesForm", {data, id});
+
+  }
+
+  static addCategories(req, res) {
+    let data = req.session;
+    let id = req.params.id;
+    const { name, urlVideo } = req.body
+
+    Category.create({
+      name,
+      urlVideo
+    })
+    .then( categories => {
+      res.redirect("/categories");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+    
+  }
+
+  static deleteCategories(req,res){
+    let data = req.session;
+    let id = req.params.id;
+    let CategoryId = req.params.categoriesid
+
+    Category.destroy({
+      where: {
+        id: CategoryId
+      }
+    })
+    .then( categories => {
+      res.redirect("/categories");
+    })
+    .catch( err => {
+      res.send(err);
+    })
+  }
+
+  static editCourses(req,res){
+    let data = req.session;
+    let id = req.params.id;
+    let CoursesId = req.params.id
+
+    Course.findOne({
+      include: {
+        model: Category,
+        required: true,
+      },
+      where: {
+        id: CoursesId
+      }
+    })
+    .then( courses => {
+      res.render("./pages/coursesForm", {courses, data});
+    })
+    .catch( err => {
+      res.send(err);
+    })
+  }
+
+  static updateCourses(req,res){
+    const { CourseId, title, master, urlImg, urlVideo, description, category } = req.body
+    let data = req.session;
+    let id = req.params.id;
+    // let CategoryId = req.params.categoriesid
+
+    Course.update({
+      title: req.body.title,
+      master: req.body.master,
+      urlImg: req.body.urlImg,
+      urlVideo: req.body.urlVideo,
+      description: req.body.description,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      where: {
+          id: id
+      }
+  })
+    .then( categories => {
+      res.redirect(`/categories/${category}`);
+    })
+    .catch( err => {
+      res.send(err);
+    })
+
   }
 }
 

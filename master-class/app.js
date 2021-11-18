@@ -13,6 +13,7 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
+    // expires: new Date(Date.now() + (30 * 86400 * 1000)),
     cookie: {
       secure: false,
       sameSite: true,

@@ -10,25 +10,52 @@
 
     <main id="animation-zoom-out" class="">
       <%- include('../partials/commercialText'); %>
+      <% if (data.role === 'Admin' ) { %>
+        <a href="/categories/add" type="button" class="btn btn-primary">Add</a>
+      <% } %>
 
       <div class="row w-75 mx-auto">
-        <% categories.forEach(function(e, index) { %>
-        <a href="/categories/<%=  e.id  %>">
-          <div class="col-6 my-5">
-            <div class="card bg-dark text-white">
-              <video autoplay poster="" class="video-parallax" loop muted>
-                <source src=" <%= e.urlVideo %> " />
-              </video>
-              <div class="card-img-overlay">
-                <h5 class="card-title"><%= e.name %></h5>
-                <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text">Last updated 3 mins ago</p> -->
+        <% if (data.role === 'Admin' ) { %>
+            <% categories.forEach(function(e, index) { %>
+            <a href="/categories/<%=  e.id  %>">
+              <div class="col-6 my-5">
+                <div class="card bg-dark text-white">
+                  <video autoplay poster="" class="video-parallax" loop muted>
+                    <source src=" <%= e.urlVideo %> " />
+                  </video>
+                  <div class="card-img-overlay">
+                    <h5 class="card-title"><%= e.name %></h5>
+                    <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text">Last updated 3 mins ago</p> -->
+                  </div>
+                </div>
               </div>
+            </a>
+            <div class="w-100">
+              <a href=""  type="button" class="btn btn-warning">Edit</a>
+              <a href="/categories/delete/<%=  e.id  %>" type="button" class="btn btn-danger">Delete</a>
             </div>
-          </div>
-        </a>
-
-        <% }); %>
+            <% }); %>
+        <% } else { %>
+            <% categories.forEach(function(e, index) { %>
+              <a href="/categories/<%=  e.id  %>">
+                <div class="col-6 my-5">
+                  <div class="card bg-dark text-white">
+                    <video autoplay poster="" class="video-parallax" loop muted>
+                      <source src=" <%= e.urlVideo %> " />
+                    </video>
+                    <div class="card-img-overlay">
+                      <h5 class="card-title"><%= e.name %></h5>
+                      <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text">Last updated 3 mins ago</p> -->
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <button type="button" class="btn btn-warning">Edit</button>
+              <button type="button" class="btn btn-danger">Delete</button>
+            <% }); %>
+        <% } %>
       </div>
     </main>
 
