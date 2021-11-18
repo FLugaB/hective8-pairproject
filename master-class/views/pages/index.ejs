@@ -5,14 +5,7 @@
     </head>
     <body onload="loader_page()">
 
-        <div id="loader">
-            <div class="wrapper">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <%- include('../partials/loader'); %>
 
         <header>
             <%- include('../partials/header'); %>
@@ -32,5 +25,6 @@
         
 
     </body>
+    <script for="javascript" src="./js/homepage.js"></script>
     <script for="javascript" src="./js/global.js"></script>
 </html>
