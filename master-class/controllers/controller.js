@@ -1,5 +1,5 @@
 const { User, Category, Course, UserProfile } = require("../models");
-
+const compareHash = require("../helpers/compareHash");
 const bcrypt = require("bcryptjs");
 
 class Controller {
@@ -40,7 +40,7 @@ class Controller {
         if (user) {
           req.session.userId = user.id;
           req.session.role = user.role;
-          const isValidPassword = bcrypt.compareSync(password, user.password);
+          const isValidPassword = compareHash(password, user.password);
           if (isValidPassword) {
             return res.redirect("/");
           } else {
@@ -86,20 +86,48 @@ class Controller {
       role: role,
     })
       .then((user) => {
-        newUser = user
+        newUser = user;
         return UserProfile.create({
-          firstName: 'You need to Edit this one',
-          lastName: 'Edit cui',
-          UserId: newUser.id
-        })
+          firstName: "You need to Edit this one",
+          lastName: "Edit cui",
+          UserId: newUser.id,
+        });
         // res.redirect("/");
       })
       .then((user) => {
+        Controller.sendEmail(email);
         res.redirect("/");
       })
       .catch((err) => {
         res.send(err);
       });
+  }
+
+  static sendEmail(email) {
+    const nodemailer = require("nodemailer");
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "masterclasseducation46@gmail.com",
+        pass: "@abc12345",
+      },
+    });
+
+    const mailOptions = {
+      from: "'Master-class' masterclasseducation46@gmail.com",
+      to: `${email}`,
+      subject: "Success Sign Up",
+      text: "Selamat anda telah terdaftar di Master Class Education",
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(`Email terkirim`);
+      }
+    });
   }
 
   static signUpWithAdmin(req, res) {
@@ -123,11 +151,11 @@ class Controller {
     let data = req.session;
     UserProfile.findOne({
       where: {
-        UserId: data.userId
+        UserId: data.userId,
       },
       include: {
-        model: User
-      }
+        model: User,
+      },
     })
       .then((user) => {
         return res.render("./pages/userProfile", { user, data });
@@ -164,7 +192,7 @@ class Controller {
     })
       .then((categories) => {
         let newCourses = categories.filter((courses) => courses.CategoryId == id);
-        let thisCategory = categories[0].Category.name
+        let thisCategory = categories[0].Category.name;
         res.render("./pages/single", { categories, newCourses, data, thisCategory });
       })
       .catch((err) => {
@@ -172,56 +200,52 @@ class Controller {
       });
   }
 
-
   static formCategories(req, res) {
-
     let data = req.session;
     let id = req.params.id;
 
-    res.render("./pages/categoriesForm", {data, id});
-
+    res.render("./pages/categoriesForm", { data, id });
   }
 
   static addCategories(req, res) {
     let data = req.session;
     let id = req.params.id;
-    const { name, urlVideo } = req.body
+    const { name, urlVideo } = req.body;
 
     Category.create({
       name,
-      urlVideo
+      urlVideo,
     })
-    .then( categories => {
-      res.redirect("/categories");
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-    
+      .then((categories) => {
+        res.redirect("/categories");
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   }
 
-  static deleteCategories(req,res){
+  static deleteCategories(req, res) {
     let data = req.session;
     let id = req.params.id;
-    let CategoryId = req.params.categoriesid
+    let CategoryId = req.params.categoriesid;
 
     Category.destroy({
       where: {
-        id: CategoryId
-      }
+        id: CategoryId,
+      },
     })
-    .then( categories => {
-      res.redirect("/categories");
-    })
-    .catch( err => {
-      res.send(err);
-    })
+      .then((categories) => {
+        res.redirect("/categories");
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   }
 
-  static editCourses(req,res){
+  static editCourses(req, res) {
     let data = req.session;
     let id = req.params.id;
-    let CoursesId = req.params.id
+    let CoursesId = req.params.id;
 
     Course.findOne({
       include: {
@@ -229,43 +253,45 @@ class Controller {
         required: true,
       },
       where: {
-        id: CoursesId
-      }
+        id: CoursesId,
+      },
     })
-    .then( courses => {
-      res.render("./pages/coursesForm", {courses, data});
-    })
-    .catch( err => {
-      res.send(err);
-    })
+      .then((courses) => {
+        res.render("./pages/coursesForm", { courses, data });
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   }
 
-  static updateCourses(req,res){
-    const { CourseId, title, master, urlImg, urlVideo, description, category } = req.body
+  static updateCourses(req, res) {
+    const { CourseId, title, master, urlImg, urlVideo, description, category } = req.body;
     let data = req.session;
     let id = req.params.id;
     // let CategoryId = req.params.categoriesid
 
-    Course.update({
-      title: req.body.title,
-      master: req.body.master,
-      urlImg: req.body.urlImg,
-      urlVideo: req.body.urlVideo,
-      description: req.body.description,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },{
-      where: {
-          id: id
+    Course.update(
+      {
+        title: req.body.title,
+        master: req.body.master,
+        urlImg: req.body.urlImg,
+        urlVideo: req.body.urlVideo,
+        description: req.body.description,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        where: {
+          id: id,
+        },
       }
-  })
-    .then( categories => {
-      res.redirect(`/categories/${category}`);
-    })
-    .catch( err => {
-      res.send(err);
-    })
-
+    )
+      .then((categories) => {
+        res.redirect(`/categories/${category}`);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   }
 }
 

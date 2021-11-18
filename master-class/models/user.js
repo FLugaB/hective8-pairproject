@@ -1,6 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 const bcrypt = require("bcryptjs");
+const hashingPassword = require("../helpers/hashingPassword");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -14,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       User.belongsToMany(models.Course, {
         through: "User_Courses",
       });
-      User.hasOne(models.UserProfile)
+      User.hasOne(models.UserProfile);
     }
   }
   User.init(
@@ -38,10 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
       hooks: {
         beforeCreate: (instance, options) => {
-          var salt = bcrypt.genSaltSync(10);
-          var hash = bcrypt.hashSync(instance.password, salt);
-
-          instance.password = hash;
+          hashingPassword(instance.password);
         },
       },
     }
