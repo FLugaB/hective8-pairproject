@@ -155,4 +155,53 @@
     .modal.show {
         background-color: rgba(0,0,0,0.6);
     }
+
+    video {
+        opacity: 0.5;
+    }
+
+    .card-img-overlay {
+        background-color: rgba(0,0,0,.6);
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .card-img-overlay:hover {
+        background-color: transparent;
+        transition: 0.3s;
+    }
+
+    .card-img-overlay  p,
+    .card-img-overlay h5 {
+        background-color: transparent;
+    }
+
+    .description{
+        position: absolute;
+        bottom: 20px;
+        background-color: transparent;
+    }
+
+    #myModal .modal-dialog {
+        max-width: 1200px;
+    }
+    
+    .profile a.active {
+        background-color: rgba(239,69,98,255);
+        color: white;
+    }
+
+    .profile a {
+        color: rgba(239,69,98,255);
+    }
+    .card.profile {
+        border: none;
+        max-width: 500px;
+    }
+
+    @media only screen and (min-width: 768px){
+        .card {
+            width: 70%;
+        }
+    }
 </style>
