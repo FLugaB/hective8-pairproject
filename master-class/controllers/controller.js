@@ -1,5 +1,4 @@
 const { User, Category, Course, UserProfile } = require("../models");
-const compareHash = require("../helpers/compareHash");
 const bcrypt = require("bcryptjs");
 
 class Controller {
@@ -40,7 +39,7 @@ class Controller {
         if (user) {
           req.session.userId = user.id;
           req.session.role = user.role;
-          const isValidPassword = compareHash(password, user.password);
+          const isValidPassword = bcrypt.compareSync(password, user.password);
           if (isValidPassword) {
             return res.redirect("/");
           } else {
@@ -242,22 +241,22 @@ class Controller {
       });
   }
 
-  static addCourses(req,res){
+  static addCourses(req, res) {
     let data = req.session;
     let id = req.params.id;
-    let CoursesId = req.params.id
+    let CoursesId = req.params.id;
 
     Category.findAll()
-    .then( category => {
-      res.render("./pages/addCoursesForm", {id, data, CoursesId, category});
-    })
-    .catch( err => {
-      res.send(err);
-    })
+      .then((category) => {
+        res.render("./pages/addCoursesForm", { id, data, CoursesId, category });
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   }
 
-  static addedCourses(req,res){
-    const { CourseId, title, master, urlImg, urlVideo, description, category } = req.body
+  static addedCourses(req, res) {
+    const { CourseId, title, master, urlImg, urlVideo, description, category } = req.body;
     let data = req.session;
     let id = req.params.id;
     // let CategoryId = req.params.categoriesid
@@ -272,15 +271,15 @@ class Controller {
       updatedAt: new Date(),
       CategoryId: req.body.category,
     })
-    .then( categories => {
-      res.redirect(`/profile`);
-    })
-    .catch( err => {
-      res.send(err);
-    })
+      .then((categories) => {
+        res.redirect(`/profile`);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   }
 
-  static editCourses(req,res){
+  static editCourses(req, res) {
     let data = req.session;
     let id = req.params.id;
     let CoursesId = req.params.id;
