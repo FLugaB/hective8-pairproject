@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     let $videoSrc;  
     $('.video-btn').click(function() {
         $videoSrc = $(this).data( "src" );

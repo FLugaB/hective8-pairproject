@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "name": "Food"
+    },{
+        "id": 2,
+        "name": "Sports & Gaming"
+    },{
+        "id": 3,
+        "name": "Design & Style"
+    },{
+        "id": 4,
+        "name": "Music"
+    }
+]

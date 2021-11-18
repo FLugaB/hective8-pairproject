@@ -1,0 +1,19 @@
+[
+    {
+        "id": 1,
+        "title": "Teaches Cooking II: Restaurant Recipes at Home",
+        "master": "Gordon Ramsay",
+        "urlImg": "https://www.masterclass.com/course-images/attachments/MxnYcBNgaWeuoLFsNPqPQnkE?width=300&height=533&fit=cover&dpr=2",
+        "urlVideo": "https://www.youtube.com/embed/iCzTTyYWUIc",
+        "description": "It’s more than dinner—it’s a dining experience. Gordon Ramsay returns with a second cooking MasterClass to teach you how to prep, plate, and pair recipes that wow guests. With 13 restaurant-inspired dishes designed for home cooking, you’ll learn how to build elevated courses from appetizer to dessert using everyday ingredients.",
+        "CategoryId": 1
+    },{
+        "id": 2,
+        "title": "Teaches Cooking I",
+        "master": "Gordon Ramsay",
+        "urlImg": "https://www.masterclass.com/course-images/attachments/TQbKGrpPvjK1Xu5iLdzZUaN1?width=300&height=533&fit=cover&dpr=2",
+        "urlVideo": "https://www.youtube.com/embed/9Ssc4Z--H48",
+        "description": "This is Gordon Ramsay like you've never experienced. The seven-star Michelin chef takes you into his home kitchen to learn everything from kitchen setup and buying the freshest ingredients to constructing unforgettable dishes. In this MasterClass, you're not just learning recipes, you're learning how to take your cooking to the next level.",
+        "CategoryId": 1
+    }
+]

@@ -2,25 +2,27 @@
   <a class="navbar-brand p-0" href="/">
     <img src="./images/Masterclass-01.png" alt="" />
   </a>
-  <%if (user === "You need to login first before classes"){ %> <%= user %>
-  <div class="mr-5 ml-auto nav-item">
-    <a href="" class="text-master font-lato-regualar" data-toggle="modal" data-target="#login">Login</a>
-  </div>
+  <%if (user === "You need to login first before classes"){ %> 
+    <div><h3 class="text-white">Login for your Classes</h3></div>
+    <div class="mr-5 ml-auto nav-item">
+      <a href="" class="text-master font-lato-regualar" data-toggle="modal" data-target="#login">Login</a>
+    </div>
   <% } %> <%if (data !== null ){ %> <%if ("Admin"=== data.role|| "Subscriber" === data.role){ %>
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link text-master font-lato-regualar" href="/categories">Categories</a>
-    </li>
-  </ul>
-  <div class="mr-5 ml-auto nav-item">
-    <a href="/logout" class="text-master font-lato-regualar px-4">Logout</a>
-    <a href="" class="text-master font-lato-regualar px-4">Profile</a>
-  </div>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link text-master font-lato-regualar" href="/categories">Categories</a>
+      </li>
+    </ul>
+    <div class="mr-5 ml-auto nav-item">
+      <a href="/logout" class="text-master font-lato-regualar px-4">Logout</a>
+      <a href="" class="text-master font-lato-regualar px-4">Profile</a>
+    </div>
 
   <% }else{%>
-  <div class="mr-5 ml-auto nav-item">
-    <a href="" class="text-master font-lato-regualar" data-toggle="modal" data-target="#login">Login</a>
-  </div>
+
+    <div class="mr-5 ml-auto nav-item">
+      <a href="" class="text-master font-lato-regualar" data-toggle="modal" data-target="#login">Login</a>
+    </div>
 
   <%} %> <%}%>
 </nav>
