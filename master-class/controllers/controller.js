@@ -242,9 +242,6 @@ class Controller {
       });
   }
 
-<<<<<<< HEAD
-  static editCourses(req, res) {
-=======
   static addCourses(req,res){
     let data = req.session;
     let id = req.params.id;
@@ -284,7 +281,6 @@ class Controller {
   }
 
   static editCourses(req,res){
->>>>>>> 207637d0c879fc253798d313cbc8625118fd6238
     let data = req.session;
     let id = req.params.id;
     let CoursesId = req.params.id;
