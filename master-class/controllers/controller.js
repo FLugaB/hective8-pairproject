@@ -136,10 +136,10 @@ class Controller {
         required: true,
       },
     })
-
       .then((categories) => {
         let newCourses = categories.filter((courses) => courses.CategoryId == id);
-        res.render("./pages/single", { categories, newCourses, data });
+        let thisCategory = categories[0].Category.name
+        res.render("./pages/single", { categories, newCourses, data, thisCategory });
       })
       .catch((err) => {
         res.send(err);
