@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Category, Course, UserProfile } = require("../models");
 
 const bcrypt = require("bcryptjs");
 
@@ -58,7 +58,23 @@ class Controller {
   }
 
   static signUp(req, res) {
-    res.render("./pages/addUserForm");
+    let user = req.session.userId;
+    let data;
+    if (!user || !data) {
+      user = false;
+      data = false;
+      res.render("./pages/addUserForm", {
+        data,
+        user,
+      });
+    } else {
+      user = true;
+      data = true;
+      res.render("./pages/addUserForm", {
+        data,
+        user,
+      });
+    }
   }
 
   static newUser(req, res) {
@@ -93,6 +109,41 @@ class Controller {
         res.redirect("/");
       }
     });
+  }
+
+  static categories(req, res) {
+    Category.findAll({
+      include: {
+        model: Course,
+        required: true,
+      },
+    })
+      .then((data) => {
+        return res.render("./pages/categories", { data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  static categoriesFindOne(req, res) {
+    let id = req.params.id;
+    Course.findAll({
+      include: {
+        model: Category,
+        required: true,
+      },
+    })
+
+      .then((data) => {
+        let newCourses = data.filter((courses) => courses.CategoryId == id);
+
+        console.log(newCourses);
+        res.render("./pages/single", { data, newCourses });
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   }
 }
 

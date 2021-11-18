@@ -11,14 +11,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Course.belongsToMany(models.User, {
         through: "User_Courses",
-      });
+      }),
+        Course.belongsTo(models.Category);
     }
   }
   Course.init(
     {
-      name: DataTypes.STRING,
-      imageUrl: DataTypes.STRING,
-      videoUrl: DataTypes.STRING,
+      title: DataTypes.STRING,
+      master: DataTypes.STRING,
+      urlImg: DataTypes.STRING,
+      urlVideo: DataTypes.STRING,
       description: DataTypes.TEXT,
       CategoryId: DataTypes.INTEGER,
     },

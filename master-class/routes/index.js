@@ -18,6 +18,9 @@ router.use(isLogin);
 // router.get("/addUser", isAdmin, Controller.signUpWithAdmin);
 // router.post("/addUser", isAdmin, Controller.newUserWithAdmin);
 
+router.get("/categories", Controller.categories);
+router.get("/categories/:id", Controller.categoriesFindOne);
+
 router.get("/logout", Controller.logout);
 
 module.exports = router;
