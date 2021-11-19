@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ceb": "nodemon app.js"
+    "ceb": "nodemon app.js",
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
